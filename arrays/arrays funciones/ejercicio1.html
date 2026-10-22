@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    <h2>Lista</h2>
+    <ul id="listaOriginal"></ul>
+
+    <script>
+        const mostrarEnLista = (array, idLista) => {
+            const ul = document.getElementById(idLista);
+            ul.innerHTML = "";
+
+            array.forEach(palabra => {
+                const li = document.createElement("li");
+                li.textContent = palabra;
+                ul.appendChild(li);
+            });
+        };
+
+        const quitarRepetidas = array => [...new Set(array)];
+
+        const ordenarZA = array =>
+            [...array].sort((a, b) => b.localeCompare(a, "es"));
+
+        let palabra = prompt("dime una palabra");
+        const lista = [];
+
+        while (palabra != "" && palabra != null) {
+            lista.push(palabra);
+            palabra = prompt("dime otra palabra");
+        }
+
+        const resultado = ordenarZA(quitarRepetidas(lista));
+        mostrarEnLista(resultado, "listaOriginal");
+    </script>
+</body>
+</html>

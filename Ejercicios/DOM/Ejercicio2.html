@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+
+<body>
+
+    <form id="formulario">
+        <label>Email:</label>
+        <input type="text" id="email">
+        <p id="errorEmail"></p>
+
+        <label>Password:</label>
+        <input type="password" id="password">
+        <p id="errorPassword"></p>
+
+        <button type="submit" id="enviar" disabled>Enviar</button>
+    </form>
+
+    <script>
+
+        let emailValido = false;
+        let passwordValido = false;
+
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let boton = document.getElementById("enviar");
+
+        function comprobarBoton() {
+            boton.disabled = !(emailValido && passwordValido);
+        }
+
+        email.addEventListener("blur", function () {
+
+            let patron = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (patron.test(email.value)) {
+                emailValido = true;
+                document.getElementById("errorEmail").textContent = "";
+            } else {
+                emailValido = false;
+                document.getElementById("errorEmail").textContent =
+                    "Formato esperado: xxxx@yyyy.zzzz";
+            }
+
+            comprobarBoton();
+
+        });
+
+        email.addEventListener("focus", function () {
+            document.getElementById("errorEmail").textContent = "";
+        });
+
+        password.addEventListener("blur", function () {
+
+            if (password.value.length >= 8 && password.value.length <= 10) {
+                passwordValido = true;
+                document.getElementById("errorPassword").textContent = "";
+            } else {
+                passwordValido = false;
+                document.getElementById("errorPassword").textContent =
+                    "La contraseña debe tener entre 8 y 10 caracteres.";
+            }
+
+            comprobarBoton();
+
+        });
+
+        password.addEventListener("focus", function () {
+            document.getElementById("errorPassword").textContent = "";
+        });
+
+        document.getElementById("formulario").addEventListener("submit", function (event) {
+
+            if (!(emailValido && passwordValido)) {
+                event.preventDefault();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

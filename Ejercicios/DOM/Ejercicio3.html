@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+
+    <style>
+        #origen {
+            width: 200px;
+            height: 100px;
+            background-color: yellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #destino {
+            width: 200px;
+            height: 100px;
+            background-color: white;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .arrastrando {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="origen" draggable="true">
+        Soy arrastrable
+    </div>
+
+    <br>
+
+    <div id="destino">
+        Soy el destino
+    </div>
+
+    <script>
+
+        let origen = document.getElementById("origen");
+        let destino = document.getElementById("destino");
+
+        // Cuando empieza el arrastre
+        origen.addEventListener("dragstart", function(event) {
+            origen.classList.add("arrastrando");
+
+            event.dataTransfer.setData("text", "origen");
+        });
+
+        // Cuando termina el arrastre
+        origen.addEventListener("dragend", function() {
+            origen.classList.remove("arrastrando");
+            destino.style.backgroundColor = "white";
+        });
+
+        // Cuando arrastramos sobre el destino
+        destino.addEventListener("dragover", function(event) {
+            event.preventDefault();
+
+            destino.style.backgroundColor = "red";
+        });
+
+        // Cuando dejamos de arrastrar sobre el destino
+        destino.addEventListener("dragleave", function() {
+            destino.style.backgroundColor = "white";
+        });
+
+        // Cuando soltamos el elemento en el destino
+        destino.addEventListener("drop", function(event) {
+            event.preventDefault();
+
+            destino.style.backgroundColor = "white";
+
+            destino.textContent = "Lo has logrado";
+
+            origen.style.display = "none";
+        });
+
+    </script>
+
+</body>
+</html>

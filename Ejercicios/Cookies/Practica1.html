@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 1 </title>
+</head>
+
+<body>
+
+    <h1>Contador de visitas</h1>
+
+    <p id="contador"></p>
+
+    <script>
+
+        // Comprobar si existe la cookie
+        let visitas = document.cookie
+            .split("; ")
+            .find(fila => fila.startsWith("visitas="));
+
+        // Si existe, obtener su valor
+        if (visitas) {
+            visitas = parseInt(visitas.split("=")[1]);
+        } else {
+            visitas = 0;
+        }
+
+        // Sumar una visita
+        visitas++;
+
+        // Si supera las 10 visitas, poner el contador a cero
+        if (visitas > 10) {
+
+            document.cookie = "visitas=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+
+            visitas = 0;
+
+        } else {
+
+            // Crear cookie con caducidad de un mes
+            let fecha = new Date();
+            fecha.setMonth(fecha.getMonth() + 1);
+
+            document.cookie = "visitas=" + visitas +
+                "; expires=" + fecha.toUTCString() + "; path=/";
+
+        }
+
+        // Mostrar el número de visitas
+        document.getElementById("contador").textContent =
+            "Has visitado esta página " + visitas + " veces.";
+
+    </script>
+
+</body>
+</html>

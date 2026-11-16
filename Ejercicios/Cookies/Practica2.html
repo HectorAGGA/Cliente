@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 2</title>
+</head>
+
+<body>
+
+    <h1>Temporizador con promesas</h1>
+
+    <p id="resultado"></p>
+
+    <script>
+
+        // Función que recibe un tiempo en milisegundos
+        function temporizador(tiempo) {
+
+            return new Promise((resolve, reject) => {
+
+                // Temporizador que cumple la promesa
+                let temporizador1 = setTimeout(() => {
+                    resolve("Tiempo concluido");
+                }, tiempo);
+
+                // Temporizador que comprueba si se supera el doble de tiempo
+                let temporizador2 = setTimeout(() => {
+                    clearTimeout(temporizador1);
+                    reject("El tiempo no va bien");
+                }, tiempo * 2);
+
+            });
+
+        }
+
+        // Invocar la función con 5 segundos
+        temporizador(5000)
+
+            .then((mensaje) => {
+                document.getElementById("resultado").textContent = mensaje;
+            })
+
+            .catch((error) => {
+                document.getElementById("resultado").textContent = error;
+            });
+
+    </script>
+
+</body>
+</html>
